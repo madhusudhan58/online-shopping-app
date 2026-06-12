@@ -1,0 +1,22 @@
+name: Shopping CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - uses: actions/checkout@v4
+
+    - name: Build Backend
+      run: docker build -t shopping-backend ./backend
+
+    - name: Build Frontend
+      run: docker build -t shopping-frontend ./frontend
