@@ -1,30 +1,30 @@
 pipeline {
-
     agent any
 
     stages {
 
-        stage('Git Checkout') {
+        stage('Checkout') {
             steps {
-                git 'https://github.com/madhusudhan58/online-shopping-app.git'
+                checkout scm
             }
         }
 
-        stage('Build Backend Image') {
+        stage('Build Backend') {
             steps {
-                sh 'docker build -t shopping-backend ./backend'
+                sh 'docker build -t madhu58/shopping-backend:v1 ./backend'
             }
         }
 
-        stage('Build Frontend Image') {
+        stage('Build Frontend') {
             steps {
-                sh 'docker build -t shopping-frontend ./frontend'
+                sh 'docker build -t madhu58/shopping-frontend:v1 ./frontend'
             }
         }
 
-        stage('Run Containers') {
+        stage('Push Images') {
             steps {
-                sh 'docker compose up -d'
+                sh 'docker push madhu58/shopping-backend:v1'
+                sh 'docker push madhu58/shopping-frontend:v1'
             }
         }
     }

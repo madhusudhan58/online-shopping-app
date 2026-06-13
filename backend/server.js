@@ -1,20 +1,21 @@
-require("dotenv").config();
 const express = require("express");
-const mongoose = require("mongoose");
+const cors = require("cors");
+
+const productRoutes = require("./routes/productRoutes");
 
 const app = express();
 
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
-
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("Shopping API Running");
+  res.send("Online Shopping Backend Running");
 });
 
-app.listen(process.env.PORT, () => {
-  console.log("Server Started");
+app.use("/api/products", productRoutes);
+
+const PORT = 5002;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });

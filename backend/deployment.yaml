@@ -3,20 +3,17 @@ kind: Deployment
 metadata:
   name: shopping-backend
 spec:
-  replicas: 2
-
+  replicas: 1
   selector:
     matchLabels:
       app: shopping-backend
-
   template:
     metadata:
       labels:
         app: shopping-backend
-
     spec:
       containers:
-      - name: backend
-        image: shopping-backend
+      - name: shopping-backend
+        image: madhu58/shopping-backend:v1
         ports:
-        - containerPort: 5001
+        - containerPort: 5002
